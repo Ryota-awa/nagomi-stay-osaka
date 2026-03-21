@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
         }
       ),
       fetch(
-        `${SMOOBU_API_BASE}/apartments/${apartmentId}/rates?start_date=${checkIn}&end_date=${checkOut}`,
+        `${SMOOBU_API_BASE}/rates?apartments[]=${apartmentId}&start_date=${checkIn}&end_date=${checkOut}`,
         {
           headers: { "Api-Key": apiKey, "Content-Type": "application/json" },
           cache: "no-store",
@@ -80,8 +80,9 @@ export async function POST(req: NextRequest) {
 
     if (ratesRes.ok) {
       const ratesData = await ratesRes.json();
-      // Smoobu rates API returns: { data: { "YYYY-MM-DD": { price: number }, ... } }
-      const rateMap: Record<string, { price: number }> = ratesData.data ?? {};
+      // Smoobu rates API returns: { data: { "{apartmentId}": { "YYYY-MM-DD": { price: number, available: 0|1 }, ... } } }
+      const rateMap: Record<string, { price: number; available: number }> =
+        ratesData.data?.[apartmentId] ?? {};
 
       // Sum prices for each night from checkIn up to (but not including) checkOut
       let sum = 0;
@@ -98,12 +99,13 @@ export async function POST(req: NextRequest) {
         cursor.setDate(cursor.getDate() + 1);
       }
 
-      if (covered === nights && nights > 0) {
-        totalPrice = sum;
-        pricePerNight = Math.round(sum / nights);
+      if (covered > 0 && nights > 0) {
+        // Use actual rates; fill any missing nights with average
+        const avg = Math.round(sum / covered);
+        totalPrice = sum + (nights - covered) * avg;
+        pricePerNight = Math.round(totalPrice / nights);
       } else {
-        // Some dates missing from rates — fall back to default
-        console.warn(`Smoobu rates incomplete (${covered}/${nights} nights). Using default.`);
+        console.warn(`Smoobu rates returned no data (${covered}/${nights} nights). Using default.`);
         totalPrice = nights * DEFAULT_PRICE_PER_NIGHT;
         pricePerNight = DEFAULT_PRICE_PER_NIGHT;
       }
