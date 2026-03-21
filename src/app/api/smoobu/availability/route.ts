@@ -121,6 +121,11 @@ export async function POST(req: NextRequest) {
       pricePerNight,
       nights,
       unavailableDates: available ? [] : overlapping.map((b) => `${b.arrival}〜${b.departure}`),
+      _debug: {
+        ratesOk: ratesRes.ok,
+        ratesStatus: ratesRes.status,
+        ratesUrl: `${SMOOBU_API_BASE}/rates?apartments[]=${apartmentId}&start_date=${checkIn}&end_date=${checkOut}`,
+      },
     });
   } catch (err) {
     console.error("Availability check error:", err);
