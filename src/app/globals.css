@@ -1,26 +1,135 @@
 @import "tailwindcss";
 
+/* Material Design 3 Color Tokens */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary — warm amber/rust */
+  --md-primary: #9C4221;
+  --md-on-primary: #FFFFFF;
+  --md-primary-container: #FFDBC8;
+  --md-on-primary-container: #370E00;
+
+  /* Secondary */
+  --md-secondary: #77574A;
+  --md-on-secondary: #FFFFFF;
+  --md-secondary-container: #FFDBD1;
+
+  /* Surface */
+  --md-surface: #FFF8F6;
+  --md-surface-variant: #F5DECC;
+  --md-on-surface: #201A18;
+  --md-on-surface-variant: #53433C;
+
+  /* Outline */
+  --md-outline: #85736C;
+  --md-outline-variant: #D8C2B9;
+
+  /* Elevation shadows */
+  --md-shadow-1: 0 1px 2px rgba(0,0,0,.12), 0 1px 3px rgba(0,0,0,.10);
+  --md-shadow-2: 0 1px 2px rgba(0,0,0,.12), 0 2px 6px rgba(0,0,0,.10);
+  --md-shadow-3: 0 4px 8px rgba(0,0,0,.12), 0 1px 3px rgba(0,0,0,.10);
+
+  --background: #FFF8F6;
+  --foreground: #201A18;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: 'Roboto', var(--font-noto), system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+* { box-sizing: border-box; }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', 'Noto Sans JP', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html { scroll-behavior: smooth; }
+
+/* MD3 Surface Tonal Levels */
+.md-surface { background: var(--md-surface); }
+.md-surface-1 { background: color-mix(in srgb, var(--md-primary) 5%, var(--md-surface)); }
+.md-surface-2 { background: color-mix(in srgb, var(--md-primary) 8%, var(--md-surface)); }
+.md-surface-3 { background: color-mix(in srgb, var(--md-primary) 11%, var(--md-surface)); }
+
+/* MD3 State Layer (hover) */
+.md-state-hover {
+  position: relative;
+  overflow: hidden;
+}
+.md-state-hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.md-state-hover:hover::after { opacity: 0.08; }
+
+/* MD3 Elevation cards */
+.md-card-1 { box-shadow: var(--md-shadow-1); }
+.md-card-2 { box-shadow: var(--md-shadow-2); }
+.md-card-3 { box-shadow: var(--md-shadow-3); }
+
+/* Details/summary reset */
+details summary::-webkit-details-marker { display: none; }
+
+/* Smooth page transitions */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.4s ease forwards; }
+
+/* ── react-day-picker custom theme ── */
+.rdp-booking {
+  --rdp-accent-color: var(--md-primary);
+  --rdp-accent-background-color: var(--md-primary-container);
+  --rdp-range_start-color: #fff;
+  --rdp-range_end-color: #fff;
+  --rdp-range_start-background: var(--md-primary);
+  --rdp-range_end-background: var(--md-primary);
+  --rdp-range-background-color: var(--md-primary-container);
+  --rdp-selected-border: 2px solid var(--md-primary);
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.rdp-booking .rdp-month {
+  width: 100%;
+}
+
+.rdp-booking .rdp-table {
+  width: 100%;
+}
+
+.rdp-booking .rdp-day {
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 0.85rem;
+}
+
+/* Touch targets on mobile */
+@media (max-width: 640px) {
+  .rdp-booking .rdp-day {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile global fixes */
+@media (max-width: 640px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    font-size: 16px; /* prevents iOS zoom on focus */
+  }
 }
