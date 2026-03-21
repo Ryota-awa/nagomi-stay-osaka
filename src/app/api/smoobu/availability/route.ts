@@ -13,8 +13,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "checkIn and checkOut are required" }, { status: 400 });
     }
 
-    const apiKey = process.env.SMOOBU_API_KEY;
-    const apartmentId = process.env.SMOOBU_APARTMENT_ID;
+    const apiKey = process.env.SMOOBU_API_KEY?.trim();
+    const apartmentId = process.env.SMOOBU_APARTMENT_ID?.trim();
 
     const nights = Math.round(
       (new Date(checkOut).getTime() - new Date(checkIn).getTime()) / 86400000
@@ -121,11 +121,6 @@ export async function POST(req: NextRequest) {
       pricePerNight,
       nights,
       unavailableDates: available ? [] : overlapping.map((b) => `${b.arrival}〜${b.departure}`),
-      _debug: {
-        ratesOk: ratesRes.ok,
-        ratesStatus: ratesRes.status,
-        ratesUrl: `${SMOOBU_API_BASE}/rates?apartments[]=${apartmentId}&start_date=${checkIn}&end_date=${checkOut}`,
-      },
     });
   } catch (err) {
     console.error("Availability check error:", err);
