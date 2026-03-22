@@ -1,0 +1,26 @@
+export const faqs = {
+  ja: [
+    { q: "チェックインとチェックアウトの時間は？", a: "チェックインは15:00〜22:00、チェックアウトは11:00までです。" },
+    { q: "最大何名まで宿泊できますか？", a: "最大6名様までご利用いただけます。" },
+    { q: "キャンセルポリシーは？", a: "チェックイン7日前まで全額返金。7日前〜1日前は1泊分、当日は全額キャンセル料が発生します。" },
+    { q: "自炊はできますか？", a: "はい、フルキッチン（IHコンロ・電子レンジ・冷蔵庫・調理器具・食器）が完備されています。" },
+    { q: "Wi-Fiはありますか？", a: "はい、無料の高速Wi-Fiをご利用いただけます。" },
+    { q: "最寄り駅は？", a: "大阪メトロ四つ橋線・南海電鉄「岸里玉出駅」3番出口より徒歩約5分（400m）です。" },
+    { q: "駐車場はありますか？", a: "専用駐車場はありませんが、近隣にコインパーキングがあります。" },
+    { q: "ペットは連れていけますか？", a: "大変申し訳ございませんが、ペットの同伴はお断りしております。" },
+    { q: "タオル・アメニティはありますか？", a: "タオル、シャンプー、コンディショナー、ボディソープ、ドライヤーを完備しています。" },
+    { q: "難波へのアクセスは？", a: "岸里玉出駅より大阪メトロ四つ橋線で難波まで約5分です。" },
+  ],
+  en: [
+    { q: "What are the check-in and check-out times?", a: "Check-in is from 15:00 to 22:00. Check-out is by 11:00." },
+    { q: "How many guests can stay?", a: "Up to 6 guests can stay at the property." },
+    { q: "What is the cancellation policy?", a: "Free cancellation up to 7 days before check-in. Within 7 days: 1 night fee. Same day: full amount." },
+    { q: "Can we cook at the property?", a: "Yes! A fully equipped kitchen with IH cooktop, microwave, refrigerator, cookware, and tableware is available." },
+    { q: "Is Wi-Fi available?", a: "Yes, free high-speed Wi-Fi is available throughout the property." },
+    { q: "What is the nearest station?", a: "Kishinosato-Tamade Station (Osaka Metro Yotsubashi Line / Nankai Railway), 5 min walk from Exit 3 (400m)." },
+    { q: "Is parking available?", a: "There is no dedicated parking, but coin parking lots are available nearby." },
+    { q: "Are pets allowed?", a: "Unfortunately, pets are not allowed at this property." },
+    { q: "Are towels and toiletries provided?", a: "Yes, towels, shampoo, conditioner, body wash, and a hair dryer are all provided." },
+    { q: "How far is Namba?", a: "About 5 minutes by Osaka Metro Yotsubashi Line from Kishinosato-Tamade Station." },
+  ],
+};
