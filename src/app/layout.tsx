@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   description: `${PROPERTY.description} ${PROPERTY.descriptionEn}`,
   keywords: SEO.keywords,
   authors: [{ name: PROPERTY.name }],
+  verification: {
+    google: "tJnEjTh_qd0DeJciVZ35D8fW7p9FLFLn2fYCx63qHUk",
+  },
   robots: {
     index: true,
     follow: true,
